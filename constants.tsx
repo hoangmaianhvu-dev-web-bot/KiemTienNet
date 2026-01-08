@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { 
   Home, 
@@ -14,9 +13,9 @@ import { User, Mission, Transaction } from './types';
 export const INITIAL_USER: User = {
   id: 'u1',
   name: 'Người dùng Demo',
-  balance: 25000,
-  totalEarned: 50000,
-  referralCode: 'KTNET88',
+  balance: 0,
+  totalEarned: 0,
+  referralCode: 'KTNET99',
   membership: 'FREE',
   joinDate: new Date().toISOString().split('T')[0]
 };
@@ -26,20 +25,20 @@ export const MOCK_WITHDRAWALS: Transaction[] = [];
 export const MISSIONS: Mission[] = [
   {
     id: 'm1',
-    title: 'Vượt link Shopee Video nhận 5k',
+    title: 'Nhiệm vụ vượt link 1',
     reward: 5000,
     type: 'LINK',
-    description: 'Thực hiện vượt link rút gọn để lấy mã xác nhận dán vào hệ thống.',
-    url: 'https://shopee.vn',
+    description: 'Thực hiện vượt link rút gọn để nhận phần thưởng.',
+    url: 'https://example.com',
     status: 'AVAILABLE'
   },
   {
     id: 'm2',
-    title: 'Theo dõi Fanpage nhận quà',
+    title: 'Xem video quảng cáo',
     reward: 2000,
     type: 'SOCIAL',
-    description: 'Like và Follow fanpage chính thức để cập nhật tin tức.',
-    url: 'https://facebook.com',
+    description: 'Xem video trong 30 giây để nhận thưởng.',
+    url: 'https://example.com',
     status: 'AVAILABLE'
   }
 ];

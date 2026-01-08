@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { MessageCircle, Mail, Globe, Send, PhoneCall, ExternalLink } from 'lucide-react';
+import { MessageCircle, Mail, Globe, Send, PhoneCall, ExternalLink, MessageSquare } from 'lucide-react';
 
 const Support: React.FC = () => {
   return (
@@ -15,23 +15,47 @@ const Support: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {[
-          { title: 'Nhóm Telegram', desc: 'Cộng đồng trao đổi MMO lớn nhất.', icon: <Send size={28} className="text-[#229ED9]" />, action: 'Tham gia nhóm' },
-          { title: 'Fanpage Facebook', desc: 'Giải đáp nhanh qua Messenger.', icon: <Globe size={28} className="text-[#1877F2]" />, action: 'Gửi tin nhắn' },
-          { title: 'Email hỗ trợ', desc: 'Dành cho khiếu nại & hợp tác.', icon: <Mail size={28} className="text-red-400" />, action: 'Gửi Email ngay' },
-          { title: 'Hotline ưu tiên', desc: 'Hỗ trợ khẩn cấp cho thành viên VIP.', icon: <PhoneCall size={28} className="text-emerald-400" />, action: 'Gọi 1900 xxxx' },
+          { 
+            title: 'Hỗ trợ Zalo', 
+            desc: 'Nhắn tin trực tiếp qua Zalo 0337117930 để được giải đáp tức thì.', 
+            icon: <MessageSquare size={28} className="text-blue-500" />, 
+            action: 'Mở Zalo 0337117930', 
+            link: 'https://zalo.me/0337117930' 
+          },
+          { 
+            title: 'Email hỗ trợ', 
+            desc: 'Liên hệ qua hòm thư anhvuzzz09@gmail.com cho các vấn đề khiếu nại.', 
+            icon: <Mail size={28} className="text-red-400" />, 
+            action: 'Gửi Email ngay', 
+            link: 'mailto:anhvuzzz09@gmail.com' 
+          },
+          { 
+            title: 'Nhóm Telegram', 
+            desc: 'Cộng đồng trao đổi MMO lớn nhất, nơi chia sẻ kinh nghiệm kiếm tiền.', 
+            icon: <Send size={28} className="text-[#229ED9]" />, 
+            action: 'Tham gia nhóm', 
+            link: '#' 
+          },
+          { 
+            title: 'Hotline ưu tiên', 
+            desc: 'Dành riêng cho thành viên VIP, hỗ trợ trực tiếp mọi vấn đề kỹ thuật.', 
+            icon: <PhoneCall size={28} className="text-emerald-400" />, 
+            action: 'Gọi 0337117930', 
+            link: 'tel:0337117930' 
+          },
         ].map((item, i) => (
-          <div key={i} className="bg-slate-900 p-8 rounded-[2rem] border border-white/5 shadow-2xl flex items-center gap-6 hover:border-white/10 transition-all group">
+          <a key={i} href={item.link} target="_blank" rel="noopener noreferrer" className="bg-slate-900 p-8 rounded-[2rem] border border-white/5 shadow-2xl flex items-center gap-6 hover:border-white/10 transition-all group cursor-pointer">
             <div className="p-5 bg-slate-800 rounded-2xl group-hover:scale-110 transition-all shadow-lg">
               {item.icon}
             </div>
             <div className="flex-1">
               <h3 className="font-bold text-white text-lg">{item.title}</h3>
               <p className="text-xs text-slate-500 mt-1 leading-relaxed">{item.desc}</p>
-              <button className="text-xs font-black text-blue-400 mt-4 flex items-center gap-2 hover:underline tracking-widest uppercase">
+              <span className="text-xs font-black text-blue-400 mt-4 flex items-center gap-2 hover:underline tracking-widest uppercase">
                 {item.action} <ExternalLink size={14} />
-              </button>
+              </span>
             </div>
-          </div>
+          </a>
         ))}
       </div>
 
@@ -40,8 +64,8 @@ const Support: React.FC = () => {
         <div className="space-y-6">
           {[
             { q: 'Làm sao để nhận tiền sau khi vượt link?', a: 'Hệ thống sẽ tự động cộng tiền vào số dư của bạn ngay sau khi bạn hoàn thành các bước yêu cầu trên trang liên kết.' },
-            { q: 'Tại sao lệnh rút tiền của tôi bị từ chối?', a: 'Có thể do thông tin tài khoản ngân hàng sai hoặc bạn vi phạm chính sách (gian lận, sử dụng tool).' },
-            { q: 'Mất bao lâu để nhận được mã thẻ Garena?', a: 'Mã thẻ sẽ được xử lý và gửi trực tiếp vào email bạn đã đăng ký trong mục Wallet trong vòng 5-15 phút.' },
+            { q: 'Thời gian xử lý rút tiền là bao lâu?', a: 'Lệnh rút tiền qua Ngân hàng xử lý trong 24h, Thẻ Garena xử lý trong 15-30 phút.' },
+            { q: 'Tôi có thể thay đổi số tài khoản ngân hàng không?', a: 'Có, bạn vào phần Tài khoản -> Chỉnh sửa thông tin Ngân hàng để cập nhật.' },
           ].map((faq, i) => (
             <div key={i} className="p-6 bg-white/5 rounded-2xl border border-white/5">
               <h4 className="font-bold text-blue-400 text-sm">Q: {faq.q}</h4>

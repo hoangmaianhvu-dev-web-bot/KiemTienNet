@@ -1,13 +1,15 @@
 
 export enum ViewState {
   LANDING = 'LANDING',
+  AUTH = 'AUTH',
   DASHBOARD = 'DASHBOARD',
   MISSIONS = 'MISSIONS',
   WALLET = 'WALLET',
   REFERRAL = 'REFERRAL',
   SUPPORT = 'SUPPORT',
   ACCOUNT = 'ACCOUNT',
-  ADMIN = 'ADMIN'
+  ADMIN = 'ADMIN',
+  PRIVACY = 'PRIVACY'
 }
 
 export interface BankInfo {
@@ -26,6 +28,7 @@ export interface User {
   joinDate: string;
   bankInfo?: BankInfo;
   garenaEmail?: string;
+  isAdmin?: boolean;
 }
 
 export interface Mission {
@@ -47,4 +50,12 @@ export interface Transaction {
   status: 'PENDING' | 'SUCCESS' | 'FAILED';
   date: string;
   method: string;
+}
+
+export interface AppNotification {
+  id: string;
+  title: string;
+  message: string;
+  date: string;
+  isRead: boolean;
 }
