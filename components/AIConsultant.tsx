@@ -10,64 +10,49 @@ interface Message {
 
 const AIConsultant: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: 'Xin chào! Tôi là trợ lý AI của KiemTienNet. Tôi có thể giúp gì cho bạn trong việc gia tăng thu nhập hôm nay?' }
+    { role: 'assistant', content: 'Xin chào! Tôi là trợ lý AI. Tôi có thể giúp gì cho bạn trong việc kiếm tiền online hôm nay?' }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
+    if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   }, [messages]);
 
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
-
     const userMsg = input;
     setInput('');
     setMessages(prev => [...prev, { role: 'user', content: userMsg }]);
     setIsLoading(true);
-
     try {
       const response = await geminiService.getEarningAdvice(userMsg);
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
     } catch (error) {
-      setMessages(prev => [...prev, { role: 'assistant', content: 'Lỗi kết nối API. Vui lòng kiểm tra lại.' }]);
+      setMessages(prev => [...prev, { role: 'assistant', content: 'Lỗi kết nối AI. Thử lại sau.' }]);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="h-[calc(100vh-12rem)] flex flex-col bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden animate-in zoom-in-95 duration-300">
-      {/* Header */}
-      <div className="p-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center gap-3">
-        <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-          <Sparkles size={20} />
-        </div>
+    <div className="h-[calc(100vh-12rem)] flex flex-col bg-slate-900 rounded-[2rem] border border-white/5 shadow-2xl overflow-hidden animate-in zoom-in-95">
+      <div className="p-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center gap-4">
+        <Sparkles className="animate-pulse" />
         <div>
-          <h2 className="font-bold">Trợ lý Kiếm Tiền AI</h2>
-          <p className="text-xs text-blue-100">Luôn sẵn sàng hỗ trợ bạn 24/7</p>
+          <h2 className="font-black">Trợ lý Kiếm Tiền AI</h2>
+          <p className="text-[10px] text-blue-100 uppercase tracking-widest font-bold">Powered by Gemini 3</p>
         </div>
       </div>
-
-      {/* Messages */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 space-y-6">
         {messages.map((msg, i) => (
           <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <div className={`flex gap-3 max-w-[80%] ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
-              <div className={`w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center ${
-                msg.role === 'user' ? 'bg-blue-100 text-blue-600' : 'bg-slate-100 text-slate-600'
-              }`}>
-                {msg.role === 'user' ? <User size={16} /> : <Bot size={16} />}
+            <div className={`flex gap-4 max-w-[85%] ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
+              <div className={`w-10 h-10 rounded-2xl flex-shrink-0 flex items-center justify-center border ${msg.role === 'user' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-300 border-white/5'}`}>
+                {msg.role === 'user' ? <User size={18} /> : <Bot size={18} />}
               </div>
-              <div className={`p-3 rounded-2xl text-sm leading-relaxed ${
-                msg.role === 'user' 
-                  ? 'bg-blue-600 text-white rounded-tr-none' 
-                  : 'bg-slate-100 text-slate-800 rounded-tl-none border border-slate-200 shadow-sm'
-              }`}>
+              <div className={`p-5 rounded-[1.5rem] text-sm leading-relaxed shadow-xl ${msg.role === 'user' ? 'bg-blue-600 text-white rounded-tr-none' : 'bg-slate-800 text-slate-300 rounded-tl-none border border-white/5'}`}>
                 {msg.content}
               </div>
             </div>
@@ -75,42 +60,25 @@ const AIConsultant: React.FC = () => {
         ))}
         {isLoading && (
           <div className="flex justify-start">
-            <div className="flex gap-3 max-w-[80%]">
-              <div className="w-8 h-8 rounded-full bg-slate-100 flex-shrink-0 flex items-center justify-center">
-                <Bot size={16} className="animate-pulse" />
-              </div>
-              <div className="p-4 bg-slate-50 border border-slate-200 rounded-2xl rounded-tl-none">
-                <Loader2 size={20} className="animate-spin text-blue-600" />
-              </div>
+            <div className="flex gap-4 items-center p-5 bg-slate-800 rounded-2xl border border-white/5">
+              <Loader2 className="animate-spin text-blue-400" size={20} />
+              <span className="text-xs text-slate-500 font-bold uppercase tracking-widest">AI đang suy nghĩ...</span>
             </div>
           </div>
         )}
       </div>
-
-      {/* Input */}
-      <div className="p-4 border-t border-slate-100 bg-slate-50">
-        <form 
-          onSubmit={(e) => { e.preventDefault(); handleSend(); }}
-          className="flex items-center gap-2"
-        >
+      <div className="p-6 bg-slate-900 border-t border-white/5">
+        <div className="flex gap-3">
           <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Ví dụ: Làm sao để kiếm 100k/ngày?"
-            className="flex-1 px-4 py-3 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+            type="text" value={input} onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+            placeholder="Đặt câu hỏi về MMO..."
+            className="flex-1 px-6 py-4 bg-slate-800 border border-white/10 rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none text-white text-sm"
           />
-          <button
-            type="submit"
-            disabled={!input.trim() || isLoading}
-            className="p-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <Send size={20} />
+          <button onClick={handleSend} disabled={isLoading || !input.trim()} className="p-4 bg-blue-600 text-white rounded-2xl hover:bg-blue-700 disabled:opacity-50 transition-all">
+            <Send size={24} />
           </button>
-        </form>
-        <p className="text-[10px] text-center text-slate-400 mt-2 italic">
-          AI có thể đưa ra câu trả lời không chính xác, hãy sử dụng như một nguồn tham khảo.
-        </p>
+        </div>
       </div>
     </div>
   );

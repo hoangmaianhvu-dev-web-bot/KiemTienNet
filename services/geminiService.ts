@@ -5,7 +5,8 @@ export class GeminiService {
   private ai: GoogleGenAI;
 
   constructor() {
-    this.ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+    // Correct initialization as per @google/genai guidelines using process.env.API_KEY directly
+    this.ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   }
 
   async getEarningAdvice(query: string) {
@@ -21,6 +22,7 @@ export class GeminiService {
           temperature: 0.7,
         }
       });
+      // Direct access to .text property as recommended by the SDK guidelines
       return response.text || "Xin lỗi, tôi không thể trả lời lúc này.";
     } catch (error) {
       console.error("Gemini API Error:", error);

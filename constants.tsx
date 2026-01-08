@@ -1,67 +1,45 @@
 
 import React from 'react';
-import { Mission } from './types';
 import { 
   Home, 
   LayoutGrid, 
   Wallet, 
   Users, 
-  MessageSquareText, 
-  LogOut,
-  TrendingUp,
-  CheckCircle,
-  Clock,
-  ExternalLink
+  Headphones, 
+  UserCircle,
+  ShieldCheck 
 } from 'lucide-react';
+import { User, Mission, Transaction } from './types';
 
-export const INITIAL_USER = {
+export const INITIAL_USER: User = {
   id: 'u1',
   name: 'Người dùng Demo',
-  balance: 150000,
-  totalEarned: 2450000,
-  referralCode: 'KTNET99',
-  membership: 'FREE' as const
+  balance: 25000,
+  totalEarned: 50000,
+  referralCode: 'KTNET88',
+  membership: 'FREE',
+  joinDate: new Date().toISOString().split('T')[0]
 };
 
+export const MOCK_USERS: User[] = [INITIAL_USER];
+export const MOCK_WITHDRAWALS: Transaction[] = [];
 export const MISSIONS: Mission[] = [
   {
     id: 'm1',
-    title: 'Vượt link rút gọn Shopee',
-    reward: 500,
+    title: 'Vượt link Shopee Video nhận 5k',
+    reward: 5000,
     type: 'LINK',
-    description: 'Bấm vào link, xác nhận captcha và đợi 30s để nhận thưởng.',
+    description: 'Thực hiện vượt link rút gọn để lấy mã xác nhận dán vào hệ thống.',
+    url: 'https://shopee.vn',
     status: 'AVAILABLE'
   },
   {
     id: 'm2',
-    title: 'Xem video quảng cáo TikTok',
-    reward: 1200,
+    title: 'Theo dõi Fanpage nhận quà',
+    reward: 2000,
     type: 'SOCIAL',
-    description: 'Xem video tối thiểu 15 giây và thả tim.',
-    status: 'AVAILABLE'
-  },
-  {
-    id: 'm3',
-    title: 'Cài đặt App Ngân Hàng MB Bank',
-    reward: 55000,
-    type: 'APP',
-    description: 'Tải ứng dụng qua link và đăng ký tài khoản thành công.',
-    status: 'AVAILABLE'
-  },
-  {
-    id: 'm4',
-    title: 'Vượt link 1s.com',
-    reward: 450,
-    type: 'LINK',
-    description: 'Vượt link rút gọn để nhận tiền ngay lập tức.',
-    status: 'AVAILABLE'
-  },
-  {
-    id: 'm5',
-    title: 'Đăng ký tài khoản Lazada',
-    reward: 15000,
-    type: 'APP',
-    description: 'Đăng ký tài khoản mới và đăng nhập.',
+    description: 'Like và Follow fanpage chính thức để cập nhật tin tức.',
+    url: 'https://facebook.com',
     status: 'AVAILABLE'
   }
 ];
@@ -71,5 +49,7 @@ export const NAV_ITEMS = [
   { id: 'MISSIONS', label: 'Nhiệm vụ', icon: <LayoutGrid size={20} /> },
   { id: 'WALLET', label: 'Rút tiền', icon: <Wallet size={20} /> },
   { id: 'REFERRAL', label: 'Giới thiệu', icon: <Users size={20} /> },
-  { id: 'AI_CHAT', label: 'Hỏi đáp AI', icon: <MessageSquareText size={20} /> },
+  { id: 'SUPPORT', label: 'Hỗ trợ', icon: <Headphones size={20} /> },
+  { id: 'ACCOUNT', label: 'Tài khoản', icon: <UserCircle size={20} /> },
+  { id: 'ADMIN', label: 'Admin', icon: <ShieldCheck size={20} className="text-orange-500" /> },
 ];

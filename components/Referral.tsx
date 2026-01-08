@@ -1,9 +1,13 @@
 
 import React from 'react';
-import { INITIAL_USER } from '../constants';
+import { User } from '../types';
 import { Copy, Gift, Share2, Award, Zap } from 'lucide-react';
 
-const Referral: React.FC = () => {
+interface ReferralProps {
+  user: User;
+}
+
+const Referral: React.FC<ReferralProps> = ({ user }) => {
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
     alert('Đã sao chép vào bộ nhớ tạm!');
@@ -28,10 +32,10 @@ const Referral: React.FC = () => {
             <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Mã giới thiệu của bạn</label>
             <div className="flex items-center gap-2">
               <div className="flex-1 bg-slate-50 border-2 border-dashed border-slate-200 px-6 py-4 rounded-2xl text-2xl font-black text-blue-600 text-center tracking-[0.5em]">
-                {INITIAL_USER.referralCode}
+                {user.referralCode}
               </div>
               <button 
-                onClick={() => copyToClipboard(INITIAL_USER.referralCode)}
+                onClick={() => copyToClipboard(user.referralCode)}
                 className="p-5 bg-blue-600 text-white rounded-2xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-200"
               >
                 <Copy size={24} />
@@ -43,10 +47,10 @@ const Referral: React.FC = () => {
             <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Link giới thiệu trực tiếp</label>
             <div className="flex items-center gap-2">
               <div className="flex-1 bg-slate-50 px-4 py-3 rounded-xl text-sm text-slate-600 truncate border border-slate-200">
-                https://kiemtiennet.io/join?ref={INITIAL_USER.referralCode}
+                https://kiemtiennet.io/join?ref={user.referralCode}
               </div>
               <button 
-                onClick={() => copyToClipboard(`https://kiemtiennet.io/join?ref=${INITIAL_USER.referralCode}`)}
+                onClick={() => copyToClipboard(`https://kiemtiennet.io/join?ref=${user.referralCode}`)}
                 className="p-3 text-blue-600 hover:bg-blue-50 rounded-xl transition-all"
               >
                 <Share2 size={20} />
@@ -68,11 +72,11 @@ const Referral: React.FC = () => {
           
           <div className="mt-8 p-4 bg-white/10 rounded-2xl border border-white/20">
             <div className="flex justify-between items-center mb-2">
-              <span className="text-xs font-medium">Tiến trình (28/100)</span>
+              <span className="text-xs font-medium">Tiến trình (0/100)</span>
               <span className="text-xs font-bold text-yellow-400">Level 1</span>
             </div>
             <div className="h-2 w-full bg-black/20 rounded-full overflow-hidden">
-              <div className="h-full bg-yellow-400 w-[28%]"></div>
+              <div className="h-full bg-yellow-400 w-0"></div>
             </div>
           </div>
         </div>
